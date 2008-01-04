@@ -2,7 +2,7 @@
 %define plugin	console
 %define name	vdr-plugin-%plugin
 %define version	0.6.0
-%define rel	11
+%define rel	12
 
 Summary:	VDR plugin: Expands VDR to a Console on TV
 Name:		%name
