@@ -1,0 +1,934 @@
+
+This is a semi-automatically created i18n adaptation patch and may contain
+errors (such as missing translations). This should only be used as a
+temporary measure until the upstream plugin maintainer fixes the plugin
+properly according to the instructions in i18n-to-gettext.pl.
+
+Created for Mandriva Linux packaging by Anssi Hannula <anssi@mandriva.org>.
+
+
+diff -p -up console-0.6.0/console.c.orig console-0.6.0/console.c
+--- console-0.6.0/console.c.orig	2009-03-21 10:32:17.000000000 +0200
++++ console-0.6.0/console.c	2009-03-21 10:32:18.000000000 +0200
+@@ -16,11 +16,11 @@
+ #include "virtualconsoles.h"
+ #include "config.h"
+ #include "menu.h"
+-#include "i18n.h"
++
+ 
+ 
+ static const char *VERSION        = "0.6.0";
+-static const char *DESCRIPTION    = "Expands VDR to a Console on TV";
++static const char *DESCRIPTION    = trNOOP("Expands VDR to a Console on TV");
+ static const char *MAINMENUENTRY  = "Consoles";
+ 
+ cConsConsoles* gl_pConsConsoles = NULL;
+@@ -94,7 +94,7 @@ bool cPluginConsole::ProcessArgs(int arg
+ 
+ bool cPluginConsole::Start() {
+ 
+-  RegisterI18n(Phrases);
++  
+ 
+   gl_ConsoleCommands.Load(AddDirectory(ConfigDirectory(), "commands.conf"));
+ 
+diff -p -up console-0.6.0/i18n.c.orig console-0.6.0/i18n.c
+--- console-0.6.0/i18n.c.orig	2004-09-12 00:40:17.000000000 +0300
++++ console-0.6.0/i18n.c	2009-03-21 10:32:18.000000000 +0200
+@@ -1,471 +0,0 @@
+-/*
+- * i18n.c: A plugin for the Video Disk Recorder
+- *
+- * See the README file for copyright information and how to reach the author.
+- *
+- * $Id$
+- */
+-
+-
+-#include "i18n.h"
+-#include <stdio.h>
+-
+-/*
+-  // The name of the language (this MUST be the first phrase!):
+-  { "English",
+-    "Deutsch",
+-    "Slovenski",
+-    "Italiano",
+-    "Nederlands",
+-    "PortuguÍs",
+-    "FranÁais",
+-    "Norsk",
+-    "Suomi",
+-    "Polski",
+-    "EspaÒol",
+-    "Ellinika",
+-    "Svenska",
+-    "Romaneste",
+-  },
+-*/
+-
+-
+-const tI18nPhrase Phrases[] = {
+-  { "Console",
+-    "Konsole",
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-  },
+-  { "Expands VDR to a Console on TV",
+-    "Macht einen Fernseher zur Konsole",
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-  },
+-  { "Consoles",
+-    "Konsolen",
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-  },
+-  { "Terminate",
+-    "Beenden",
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-  },
+-  { "Close",
+-    "Schlieﬂen",
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-  },
+-  { "stopped",
+-    "beendet",
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-  },
+-  { "Terminate console...",
+-    "Beende Konsole...",
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-  },
+-  { "Terminate console?",
+-    "Konsole beenden?",
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-  },
+-  { "Enter keyboard",
+-    "Tastatur ein",
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-  },
+-  { "Leave keyboard",
+-    "Tastatur aus",
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-  },
+-  { "Look",
+-    "Aussehen",
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-  },
+-  { "Behaviour",
+-    "Verhalten",
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-  },
+-  { "Normal text color",
+-    "Textfarbe normal",
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-  },
+-  { "Bold text color",
+-    "Textfarbe Fett",
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-  },
+-  { "Background color",
+-    "Hintergrundfarbe",
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-  },
+-  { "Font",
+-    "Font",
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-  },
+-  { "Normal",
+-    "Normal",
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-  },
+-  { "Small",
+-    "Klein",
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-  },
+-  { "Extra small",
+-    "Sehr klein",
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-  },
+-  { "Automatic enter keyboard mode",
+-    "Tastaturmodus autom. aktivieren",
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-  },
+-  { "Bell timeout (s)",
+-    "Anzeigedauer Glocke (s)",
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-  },
+-  { "Show info bar (s)",
+-    "Zeige Infobalken (s)",
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-  },
+-  { "Cursor blink rate (100 ms)",
+-    "Cursor Blinkrate (100 ms)",
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-  },
+-  { "Background",
+-    "Hintergrund",
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-  },
+-  { "Black",
+-    "Schwarz",
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-  },
+-  { "Cyan",
+-    "Cyan",
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-  },
+-  { "White",
+-    "Weiﬂ",
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-  },
+-  { "Console(s) running - shut down anyway?",
+-    "Konsole l‰uft - trotzdem ausschalten?",
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-  },
+-  { "Prevent shutdown",
+-    "Shutdown verhindern",
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-    "", // TODO
+-  },
+-  { NULL }
+-  };
+-
+diff -p -up console-0.6.0/i18n.h.orig console-0.6.0/i18n.h
+--- console-0.6.0/i18n.h.orig	2004-09-12 00:40:17.000000000 +0300
++++ console-0.6.0/i18n.h	2009-03-21 10:32:18.000000000 +0200
+@@ -1,20 +0,0 @@
+-/*
+- * i18n.h: A plugin for the Video Disk Recorder
+- *
+- * See the README file for copyright information and how to reach the author.
+- *
+- * $Id$
+- */
+-
+-
+-#ifndef __CON_I18N_H
+-#define __CON_I18N_H
+-
+-
+-#include <vdr/i18n.h>
+-
+-
+-extern const tI18nPhrase Phrases[];
+-
+-
+-#endif //__CON_I18N_H
+diff -p -up console-0.6.0/Makefile.orig console-0.6.0/Makefile
+--- console-0.6.0/Makefile.orig	2004-09-12 00:40:17.000000000 +0300
++++ console-0.6.0/Makefile	2009-03-21 10:32:18.000000000 +0200
+@@ -54,10 +54,10 @@ DEFINES += -D_GNU_SOURCE
+ 
+ ### The object files (add further files here):
+ 
+-OBJS = $(PLUGIN).o ipc.o terminalemulation.o virtualconsole.o virtualconsoles.o menu.o i18n.o config.o
++OBJS = $(PLUGIN).o ipc.o terminalemulation.o virtualconsole.o virtualconsoles.o menu.o  config.o
+ 
+ 
+-all: libvdr-$(PLUGIN).so
++all: libvdr-$(PLUGIN).so i18n
+ 
+ 
+ ### Implicit rules:
+@@ -74,6 +74,31 @@ $(DEPFILE): Makefile
+ 
+ -include $(DEPFILE)
+ 
++### Internationalization (I18N):
++
++PODIR     = po
++LOCALEDIR = $(VDRDIR)/locale
++I18Npo    = $(wildcard $(PODIR)/*.po)
++I18Nmsgs  = $(addprefix $(LOCALEDIR)/, $(addsuffix /LC_MESSAGES/vdr-$(PLUGIN).mo, $(notdir $(foreach file, $(I18Npo), $(basename $(file))))))
++I18Npot   = $(PODIR)/$(PLUGIN).pot
++
++%.mo: %.po
++	msgfmt -c -o $@ $<
++
++$(I18Npot): $(wildcard *.[ch] *.[ch]xx *.cc *.[ch]pp *.hh)
++	xgettext -C -cTRANSLATORS --no-wrap --no-location -k -ktr -ktrNOOP --msgid-bugs-address='<http://qa.mandriva.com/>' -o $@ $^
++
++%.po: $(I18Npot)
++	msgmerge -U --no-wrap --no-location --backup=none -q $@ $<
++	@touch $@
++
++$(I18Nmsgs): $(LOCALEDIR)/%/LC_MESSAGES/vdr-$(PLUGIN).mo: $(PODIR)/%.mo
++	@mkdir -p $(dir $@)
++	cp $< $@
++
++.PHONY: i18n
++i18n: $(I18Nmsgs)
++
+ ### Targets:
+ 
+ 
+@@ -90,5 +115,6 @@ dist: clean
+ 	@echo Distribution package created as $(PACKAGE).tgz
+ 
+ clean:
++	@-rm -f $(PODIR)/*.mo $(PODIR)/*.pot
+ 	@-rm -f $(OBJS) $(DEPFILE) *.so *.tgz core* *~
+ 
+diff -p -up console-0.6.0/menu.c.orig console-0.6.0/menu.c
+--- console-0.6.0/menu.c.orig	2009-03-21 10:32:18.000000000 +0200
++++ console-0.6.0/menu.c	2009-03-21 10:32:18.000000000 +0200
+@@ -13,7 +13,7 @@
+ #include <vdr/interface.h>
+ 
+ #include "menu.h"
+-#include "i18n.h"
++
+ #include "virtualconsole.h"
+ #include "virtualconsoles.h"
+ 
+diff -p -up console-0.6.0/po/console.pot.orig console-0.6.0/po/console.pot
+--- console-0.6.0/po/console.pot.orig	2009-03-21 10:32:18.000000000 +0200
++++ console-0.6.0/po/console.pot	2009-03-21 10:32:18.000000000 +0200
+@@ -0,0 +1,145 @@
++# SOME DESCRIPTIVE TITLE.
++# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the PACKAGE package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++#, fuzzy
++msgid ""
++msgstr ""
++"Project-Id-Version: PACKAGE VERSION\n"
++"Report-Msgid-Bugs-To: http://qa.mandriva.com/\n"
++"POT-Creation-Date: 2008-04-22 18:56+0300\n"
++"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
++"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
++"Language-Team: LANGUAGE <LL@li.org>\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=CHARSET\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: console.c:23
++msgid "Expands VDR to a Console on TV"
++msgstr ""
++
++#: console.c:200
++msgid "Console(s) running - shut down anyway?"
++msgstr ""
++
++#: menu.c:439
++msgid "Transparent"
++msgstr ""
++
++#: menu.c:440
++msgid "Background"
++msgstr ""
++
++#: menu.c:441
++msgid "Black"
++msgstr ""
++
++#: menu.c:447
++msgid "Cyan"
++msgstr ""
++
++#: menu.c:448
++msgid "White"
++msgstr ""
++
++#: menu.c:452
++msgid "Normal"
++msgstr ""
++
++#: menu.c:453
++msgid "Small"
++msgstr ""
++
++#: menu.c:454
++msgid "Extra small"
++msgstr ""
++
++#: menu.c:458
++msgid "Look"
++msgstr ""
++
++#: menu.c:459
++msgid "Normal text color"
++msgstr ""
++
++#: menu.c:460
++msgid "Bold text color"
++msgstr ""
++
++#: menu.c:461
++msgid "Background color"
++msgstr ""
++
++#: menu.c:462
++msgid "Font"
++msgstr ""
++
++#: menu.c:464
++msgid "Behaviour"
++msgstr ""
++
++#: menu.c:465
++msgid "Automatic enter keyboard mode"
++msgstr ""
++
++#: menu.c:466
++msgid "Bell timeout (s)"
++msgstr ""
++
++#: menu.c:467
++msgid "Show info bar (s)"
++msgstr ""
++
++#: menu.c:468
++msgid "Cursor blink rate (100 ms)"
++msgstr ""
++
++#: menu.c:470
++msgid "Prevent shutdown"
++msgstr ""
++
++#: menu.c:1336 menu.c:1629
++msgid "Terminate console?"
++msgstr ""
++
++#: menu.c:1338 menu.c:1631
++msgid "Terminate console..."
++msgstr ""
++
++#: menu.c:1382 menu.c:1612
++msgid "New"
++msgstr ""
++
++#: menu.c:1383 menu.c:1613 menu.c:1706
++msgid "Commands"
++msgstr ""
++
++#: menu.c:1384
++msgid "Enter keyboard"
++msgstr ""
++
++#: menu.c:1384
++msgid "Leave keyboard"
++msgstr ""
++
++#: menu.c:1385 menu.c:1617
++msgid "Close"
++msgstr ""
++
++#: menu.c:1385 menu.c:1617
++msgid "Terminate"
++msgstr ""
++
++#: menu.c:1519
++msgid "stopped"
++msgstr ""
++
++#: menu.c:1564
++msgid "Consoles"
++msgstr ""
++
++#: virtualconsoles.c:133
++msgid "Console"
++msgstr ""
+diff -p -up console-0.6.0/po/de_DE.po.orig console-0.6.0/po/de_DE.po
+--- console-0.6.0/po/de_DE.po.orig	2009-03-21 10:32:18.000000000 +0200
++++ console-0.6.0/po/de_DE.po	2009-03-21 10:32:18.000000000 +0200
+@@ -0,0 +1,144 @@
++# VDR console plugin language source file.
++# Copyright (C) YEAR THE VDR-console'S COPYRIGHT HOLDER
++# This file is distributed under the same license as the VDR-console package.
++# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: VDR-console\n"
++"Report-Msgid-Bugs-To: http://qa.mandriva.com/\n"
++"POT-Creation-Date: 2008-04-22 18:56+0300\n"
++"PO-Revision-Date: 2008-04-22 18:56+0300\n"
++"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
++"Language-Team: <vdr@linuxtv.org>\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=ISO-8859-15\n"
++"Content-Transfer-Encoding: 8bit\n"
++
++#: console.c:23
++msgid "Expands VDR to a Console on TV"
++msgstr "Macht einen Fernseher zur Konsole"
++
++#: console.c:200
++msgid "Console(s) running - shut down anyway?"
++msgstr "Konsole l‰uft - trotzdem ausschalten?"
++
++#: menu.c:439
++msgid "Transparent"
++msgstr ""
++
++#: menu.c:440
++msgid "Background"
++msgstr "Hintergrund"
++
++#: menu.c:441
++msgid "Black"
++msgstr "Schwarz"
++
++#: menu.c:447
++msgid "Cyan"
++msgstr "Cyan"
++
++#: menu.c:448
++msgid "White"
++msgstr "Weiﬂ"
++
++#: menu.c:452
++msgid "Normal"
++msgstr "Normal"
++
++#: menu.c:453
++msgid "Small"
++msgstr "Klein"
++
++#: menu.c:454
++msgid "Extra small"
++msgstr "Sehr klein"
++
++#: menu.c:458
++msgid "Look"
++msgstr "Aussehen"
++
++#: menu.c:459
++msgid "Normal text color"
++msgstr "Textfarbe normal"
++
++#: menu.c:460
++msgid "Bold text color"
++msgstr "Textfarbe Fett"
++
++#: menu.c:461
++msgid "Background color"
++msgstr "Hintergrundfarbe"
++
++#: menu.c:462
++msgid "Font"
++msgstr "Font"
++
++#: menu.c:464
++msgid "Behaviour"
++msgstr "Verhalten"
++
++#: menu.c:465
++msgid "Automatic enter keyboard mode"
++msgstr "Tastaturmodus autom. aktivieren"
++
++#: menu.c:466
++msgid "Bell timeout (s)"
++msgstr "Anzeigedauer Glocke (s)"
++
++#: menu.c:467
++msgid "Show info bar (s)"
++msgstr "Zeige Infobalken (s)"
++
++#: menu.c:468
++msgid "Cursor blink rate (100 ms)"
++msgstr "Cursor Blinkrate (100 ms)"
++
++#: menu.c:470
++msgid "Prevent shutdown"
++msgstr "Shutdown verhindern"
++
++#: menu.c:1336 menu.c:1629
++msgid "Terminate console?"
++msgstr "Konsole beenden?"
++
++#: menu.c:1338 menu.c:1631
++msgid "Terminate console..."
++msgstr "Beende Konsole..."
++
++#: menu.c:1382 menu.c:1612
++msgid "New"
++msgstr ""
++
++#: menu.c:1383 menu.c:1613 menu.c:1706
++msgid "Commands"
++msgstr ""
++
++#: menu.c:1384
++msgid "Enter keyboard"
++msgstr "Tastatur ein"
++
++#: menu.c:1384
++msgid "Leave keyboard"
++msgstr "Tastatur aus"
++
++#: menu.c:1385 menu.c:1617
++msgid "Close"
++msgstr "Schlieﬂen"
++
++#: menu.c:1385 menu.c:1617
++msgid "Terminate"
++msgstr "Beenden"
++
++#: menu.c:1519
++msgid "stopped"
++msgstr "beendet"
++
++#: menu.c:1564
++msgid "Consoles"
++msgstr "Konsolen"
++
++#: virtualconsoles.c:133
++msgid "Console"
++msgstr "Konsole"
+diff -p -up console-0.6.0/terminalemulation.c.orig console-0.6.0/terminalemulation.c
+--- console-0.6.0/terminalemulation.c.orig	2004-09-12 00:40:18.000000000 +0300
++++ console-0.6.0/terminalemulation.c	2009-03-21 10:32:18.000000000 +0200
+@@ -16,7 +16,7 @@
+ #include <vdr/remote.h>
+ 
+ #include "terminalemulation.h"
+-#include "i18n.h"
++
+ 
+ 
+ 
+diff -p -up console-0.6.0/virtualconsole.c.orig console-0.6.0/virtualconsole.c
+--- console-0.6.0/virtualconsole.c.orig	2004-09-12 00:40:18.000000000 +0300
++++ console-0.6.0/virtualconsole.c	2009-03-21 10:32:18.000000000 +0200
+@@ -17,7 +17,7 @@
+ #include <vdr/remote.h>
+ 
+ #include "virtualconsole.h"
+-#include "i18n.h"
++
+ 
+ 
+ 
+diff -p -up console-0.6.0/virtualconsoles.c.orig console-0.6.0/virtualconsoles.c
+--- console-0.6.0/virtualconsoles.c.orig	2009-03-21 10:32:17.000000000 +0200
++++ console-0.6.0/virtualconsoles.c	2009-03-21 10:32:18.000000000 +0200
+@@ -17,7 +17,7 @@
+ 
+ #include "virtualconsoles.h"
+ #include "virtualconsole.h"
+-#include "i18n.h"
++
+ 
+ 
+ // This program will be used to realize a console.
