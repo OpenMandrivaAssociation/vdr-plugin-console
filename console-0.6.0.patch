@@ -1,0 +1,61 @@
+diff -ruN VDR.org/PLUGINS/src/console-0.6.0/menu.c VDR/PLUGINS/src/console-0.6.0/menu.c
+--- VDR.org/PLUGINS/src/console-0.6.0/menu.c	2005-09-13 05:20:40.000000000 +0200
++++ VDR/PLUGINS/src/console-0.6.0/menu.c	2005-09-13 05:30:39.000000000 +0200
+@@ -1210,14 +1210,26 @@
+     }
+     case kNone:
+                     // Handle blinking elements
++#if VDRVERSNUM >= 10318
++                    if ((int)cTimeMs::Now() >= _nextBlinkTime) {
++#else
+                     if (time_ms() >= _nextBlinkTime) {
++#endif
+ 
++#if VDRVERSNUM >= 10318
++                      _nextBlinkTime = cTimeMs::Now() + config.BlinkRate * 100;
++#else
+                       _nextBlinkTime = time_ms() + config.BlinkRate * 100;
++#endif
+                       _blink = !_blink;
+                     }
+ 
+                     // Handle keyboard releaseing
++#if VDRVERSNUM >= 10318
++                    if ((int)cTimeMs::Now() >= _timeReleaseCapture) {
++#else
+                     if (time_ms() >= _timeReleaseCapture) {
++#endif
+                       _timeReleaseCapture = INT_MAX;
+ 
+                       // Time elapsed -> repost ESC...
+@@ -1243,10 +1255,18 @@
+                       _pConsole->getScreen().BellSeen();
+ 
+                       if (config.BellTimeout) {
++#if VDRVERSNUM >= 10318
++                        _toRing = cTimeMs::Now() + config.BellTimeout * 1000;
++#else
+                         _toRing = time_ms() + config.BellTimeout * 1000;
++#endif
+                         state = osUser1;
+                       }
++#if VDRVERSNUM >= 10318
++                    } else if (_toRing && (int)cTimeMs::Now() > _toRing) {
++#else
+                     } else if (_toRing && time_ms() > _toRing) {
++#endif
+                       _toRing = 0;
+                       state = osUser1;
+                     }
+@@ -1441,7 +1461,11 @@
+           // esc detected. Ask for exit
+           if (data[i] == ESC) {
+ 
++#if VDRVERSNUM >= 10318
++            _timeReleaseCapture = cTimeMs::Now() + 1000;
++#else
+             _timeReleaseCapture = time_ms() + 1000;
++#endif
+             _inputState = 1;
+ 
+           } else
