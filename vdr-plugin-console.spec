@@ -2,7 +2,7 @@
 %define plugin	console
 %define name	vdr-plugin-%plugin
 %define version	0.6.0
-%define rel	16
+%define rel	17
 
 Summary:	VDR plugin: Expands VDR to a Console on TV
 Name:		%name
@@ -17,7 +17,6 @@ Patch2:		03_command_from_cli.dpatch
 Patch3:		93_console-1.5.0.dpatch
 Patch4:		console-0.6.0-i18n-1.6.patch
 Patch5:		94_console-1.6.0.dpatch
-BuildRoot:	%{_tmppath}/%{name}-buildroot
 BuildRequires:	vdr-devel >= 1.6.0
 Requires:	vdr-abi = %vdr_abi
 
@@ -49,17 +48,7 @@ param='-c COMMAND'
 %vdr_plugin_build
 
 %install
-rm -rf %{buildroot}
 %vdr_plugin_install
-
-%clean
-rm -rf %{buildroot}
-
-%post
-%vdr_plugin_post %plugin
-
-%postun
-%vdr_plugin_postun %plugin
 
 %files -f %plugin.vdr
 %defattr(-,root,root)
