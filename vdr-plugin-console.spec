@@ -4,7 +4,7 @@
 Summary:	VDR plugin: Expands VDR to a Console on TV
 Name:		vdr-plugin-%plugin
 Version:	0.6.0
-Release:	19
+Release:	20
 Group:		Video
 License:	GPL
 URL:		http://ricomp.de/vdr/
