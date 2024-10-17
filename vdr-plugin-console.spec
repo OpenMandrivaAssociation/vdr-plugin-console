@@ -7,7 +7,7 @@ Version:	0.6.0
 Release:	20
 Group:		Video
 License:	GPL
-URL:		http://ricomp.de/vdr/
+URL:		https://ricomp.de/vdr/
 Source:		http://ricomp.de/vdr/vdr-%plugin-%{version}.tgz
 Patch1:		http://deela.cc.fh-lippe.de/files/vdr-console/console-0.6.0.patch
 Patch2:		03_command_from_cli.dpatch
